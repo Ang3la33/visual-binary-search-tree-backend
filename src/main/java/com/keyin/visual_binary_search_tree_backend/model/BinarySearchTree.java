@@ -1,5 +1,7 @@
 package com.keyin.visual_binary_search_tree_backend.model;
 
+import java.util.List;
+
 public class BinarySearchTree {
 
     private Node root;
@@ -36,5 +38,11 @@ public class BinarySearchTree {
 
     public Node getRoot() {
         return root;
+    }
+
+    public void insertAll(List<Integer> values) {
+        for (Integer value : values) {
+            insert(value);
+        }
     }
 }
