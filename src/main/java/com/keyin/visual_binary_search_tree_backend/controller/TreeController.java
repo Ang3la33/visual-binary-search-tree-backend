@@ -1,0 +1,27 @@
+package com.keyin.visual_binary_search_tree_backend.controller;
+
+import com.keyin.visual_binary_search_tree_backend.model.Node;
+import com.keyin.visual_binary_search_tree_backend.service.TreeService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/api/trees")
+public class TreeController {
+
+    private final TreeService treeService;
+
+    public TreeController(TreeService treeService) {
+        this.treeService = treeService;
+    }
+
+    @PostMapping("/process-numbers")
+    public ResponseEntity<Node> processNumbers(@RequestBody List<Integer> numbers) {
+        Node root = treeService.buildBinarySearchTree(numbers);
+        return ResponseEntity.ok(root);
+    }
+
+}
