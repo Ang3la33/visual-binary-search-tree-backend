@@ -35,6 +35,10 @@ public class TreeService {
                     .collect(Collectors.joining(",")));
             treeData.setTreeJson(objectMapper.writeValueAsString(root));
             treeData.setCreatedAt(LocalDateTime.now());
+
+            // Save to database
+            treeDataRepository.save(treeData);
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
