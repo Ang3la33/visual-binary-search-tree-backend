@@ -60,4 +60,25 @@ public class TreeService {
         node.setRight(buildBalancedBST(sortedNumbers, mid + 1, end));
         return node;
     }
+
+    public Node buildBalancedBST(List<Integer> numbers) {
+        List<Integer> sortedNumbers = numbers.stream().sorted().toList();
+        Node root = buildBalancedBST(sortedNumbers, 0, sortedNumbers.size() - 1);
+
+        try {
+            TreeData treeData = new TreeData();
+            treeData.setInputNumbers(numbers.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(",")));
+            treeData.setTreeJson(objectMapper.writeValueAsString(root));
+            treeData.setCreatedAt(LocalDateTime.now());
+
+            treeDataRepository.save(treeData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return root;
+    }
+
 }

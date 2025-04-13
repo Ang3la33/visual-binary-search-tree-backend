@@ -20,8 +20,13 @@ public class TreeController {
     }
 
     @PostMapping("/process-numbers")
-    public ResponseEntity<Node> processNumbers(@RequestBody List<Integer> numbers) {
-        Node root = treeService.buildBinarySearchTree(numbers);
+    public ResponseEntity<Node> processNumbers(
+            @RequestBody List<Integer> numbers,
+            @RequestParam(defaultValue = "false") boolean balanced
+    ) {
+        Node root = balanced
+                ? treeService.buildBalancedBST(numbers)
+                : treeService.buildBinarySearchTree(numbers);
         return ResponseEntity.ok(root);
     }
 
