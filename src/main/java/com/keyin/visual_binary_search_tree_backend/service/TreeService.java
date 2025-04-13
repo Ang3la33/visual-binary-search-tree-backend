@@ -49,4 +49,15 @@ public class TreeService {
     public List<TreeData> getAllTrees() {
         return treeDataRepository.findAll();
     }
+
+    private Node buildBalancedBST(List<Integer> sortedNumbers, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        Node node = new Node(sortedNumbers.get(mid));
+        node.setLeft(buildBalancedBST(sortedNumbers, start, mid - 1));
+        node.setRight(buildBalancedBST(sortedNumbers, mid + 1, end));
+        return node;
+    }
 }
